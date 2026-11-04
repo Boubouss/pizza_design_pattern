@@ -1,6 +1,6 @@
 import type { PricingStrategy } from "./pricing.ts";
 import { Cart } from "./cart.js";
-import type { Restaurant } from "./Restaurant.js";
+import type { Restaurant } from "./restaurant.js";
 
 export class Order {
   constructor(
