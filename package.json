@@ -1,0 +1,27 @@
+{
+  "name": "pizza_design_pattern",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Boubouss/pizza_design_pattern.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Boubouss/pizza_design_pattern/issues"
+  },
+  "homepage": "https://github.com/Boubouss/pizza_design_pattern#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
