@@ -1,9 +1,33 @@
-import type { PricingStrategy } from './pricing.ts';
+import type { PricingStrategy } from "./pricing.ts";
+import { Cart } from "./cart.js";
+import type { Restaurant } from "./Restaurant.js";
 
 export class Order {
-  constructor(private pricingStrategy: PricingStrategy) {}
+  constructor(
+    private restaurant: Restaurant,
+    private pricingStrategy: PricingStrategy,
+    private cart: Cart,
+    private deliveryAddress: string | null,
+    private orderTime: Date,
+  ) {}
 
-  calculateTotal(basePrice: number): number {
-    return this.pricingStrategy.calculatePrice(basePrice);
+  public getOrderTime(): Date {
+    return this.orderTime;
+  }
+
+  calculateTotal(): number {
+    return this.pricingStrategy.calculatePrice(this.cart.calculatePrice());
+  }
+
+  public getRestaurant(): Restaurant {
+    return this.restaurant;
+  }
+
+  public getCart(): Cart {
+    return this.cart;
+  }
+
+  public getDeliveryAddress(): string | null {
+    return this.deliveryAddress;
   }
 }
