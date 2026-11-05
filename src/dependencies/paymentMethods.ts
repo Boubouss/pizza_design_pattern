@@ -1,5 +1,5 @@
 export class Paypal {
-  PaypalPay(amount: number, currency: String): void {
+  PaypalPay(amount: number, currency: string): void {
     console.log(`Paying ${amount} ${currency} using PayPal`);
   }
 }
@@ -11,7 +11,7 @@ export class Stripe {
 }
 
 export class CB {
-  payByCB(amount: number, bankName: String): void {
+  payByCB(amount: number, bankName: string): void {
     console.log(`Paying ${amount} using ${bankName} card`);
   }
 }

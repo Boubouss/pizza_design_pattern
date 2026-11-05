@@ -6,8 +6,8 @@ export interface PaymentMethod {
 
 export class PayPalAdapter implements PaymentMethod {
   paypal: Paypal;
-  currency: String;
-  constructor(paypal: Paypal, currency: String) {
+  currency: string;
+  constructor(paypal: Paypal, currency: string) {
     this.paypal = paypal;
     this.currency = currency;
   }
@@ -28,8 +28,8 @@ export class StripeAdapter implements PaymentMethod {
 
 export class CBAdapter implements PaymentMethod {
   cb: CB;
-  bankName: String;
-  constructor(cb: CB, bankName: String) {
+  bankName: string;
+  constructor(cb: CB, bankName: string) {
     this.cb = cb;
     this.bankName = bankName;
   }

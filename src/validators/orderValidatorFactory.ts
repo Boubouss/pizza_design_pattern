@@ -1,9 +1,9 @@
 import { AbstractValidator } from "./validator.js";
-import { TotalPriceValidator } from "./TotalPriceValidator.js";
-import { FactoryIsOpenValidator } from "./FactoryIsOpenValidator.js";
-import { DeliveryAddressValidator } from "./DeliveryAddressValidator.js";
-import { CartIsNotEmptyValidator } from "./CartIsNotEmptyValidator.js";
-import { FactoryStockValidator } from "./FactoryStockValidator.js";
+import { TotalPriceValidator } from "./totalPriceValidator.js";
+import { FactoryIsOpenValidator } from "./factoryIsOpenValidator.js";
+import { DeliveryAddressValidator } from "./deliveryAddressValidator.js";
+import { CartIsNotEmptyValidator } from "./cartIsNotEmptyValidator.js";
+import { FactoryStockValidator } from "./factoryStockValidator.js";
 import type { Order } from "../order.js";
 
 export class OrderValidatorFactory {
