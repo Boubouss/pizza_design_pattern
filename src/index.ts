@@ -1,5 +1,5 @@
 import { DaMicheleFactory } from './factory.js';
-import { Cart } from './cart.js';
+import { Cart, CartWithHistory } from './cart.js';
 import { Order, StatusOrder } from './order.js';
 import { Restaurant } from './restaurant.js';
 import { Stock } from './stock.js';
@@ -39,3 +39,18 @@ console.log("\n--- Detach SMS, passage à PENDING ---");
 order.getPublisher().detach(smsListener);
 order.setStatus(StatusOrder.PENDING);
 // Seul l'email doit s'afficher
+
+// --- Memento ---
+console.log("\n--- Memento ---");
+const cartWithHistory = CartWithHistory.fromCart(cart);
+console.log("Pizzas initiales:", cartWithHistory.getPizzas().map(p => p.getType()));
+
+cartWithHistory.backup();
+console.log("Backup effectué");
+
+const pizza3 = factory.createPizza("margherita", "S");
+cartWithHistory.getPizzas().push(pizza3);
+console.log("Après ajout d'une pizza:", cartWithHistory.getPizzas().map(p => p.getType()));
+
+cartWithHistory.undo();
+console.log("Après undo:", cartWithHistory.getPizzas().map(p => p.getType()));
