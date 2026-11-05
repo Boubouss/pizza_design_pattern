@@ -1,6 +1,6 @@
 import type { Pizza } from "./pizza.js";
-import { CartSnapshot } from './memento/snapshot.ts'
-import { CartHistory } from './memento/history.ts'
+import { CartSnapshot } from './memento/snapshot.js'
+import { CartHistory } from './memento/history.js'
 
 export class Cart {
   protected pizzas: Pizza[];
