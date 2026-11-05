@@ -4,6 +4,7 @@ import type { Restaurant } from "./restaurant.js";
 import { Publisher } from './observer/publisher.js'
 import { OrderEvent } from './observer/event.js'
 import { EmailListener, SmsListener } from './observer/listener.js'
+import type { Client } from "./client.js";
 
 export enum StatusOrder {
   PENDING = "PENDING",
@@ -20,6 +21,7 @@ export class Order {
     private cart: Cart,
     private deliveryAddress: string | null,
     private orderTime: Date,
+    private client: Client
   ) {
     this.publisher = new Publisher()
     this.status = StatusOrder.PENDING
@@ -60,5 +62,9 @@ export class Order {
 
   public getDeliveryAddress(): string | null {
     return this.deliveryAddress;
+  }
+
+  public getClient(): Client {
+    return this.client;
   }
 }
