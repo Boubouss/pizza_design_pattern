@@ -5,9 +5,13 @@ import { Restaurant } from './restaurant.js';
 import { Stock } from './stock.js';
 import { StandardPricing } from './pricing.js';
 import { EmailListener, SmsListener } from './observer/listener.js';
+import { Base, Ingredient, Size } from './ingredients.js';
 
 // Setup restaurant
-const stock = new Stock(new Map([["margherita", true], ["4 fromages", true]]));
+const stock = new Stock(new Map([
+  [Ingredient.MOZARELLA, true],
+  [Ingredient.GORGONZOLA, true],
+]));
 const factory = new DaMicheleFactory();
 const restaurant = new Restaurant(factory, stock, "Da Michele", {
   open: new Date("2024-01-01T11:00:00"),
@@ -15,8 +19,17 @@ const restaurant = new Restaurant(factory, stock, "Da Michele", {
 });
 
 // Setup cart
-const pizza1 = factory.createPizza("margherita", "M");
-const pizza2 = factory.createPizza("4 fromages", "L");
+const pizza1 = factory.createPizzaBuilder()
+  .setSize(Size.MEDIUM)
+  .setBase(Base.TOMATO)
+  .addIngredient(Ingredient.MOZARELLA)
+  .build();
+const pizza2 = factory.createPizzaBuilder()
+  .setSize(Size.LARGE)
+  .setBase(Base.CREAM)
+  .addIngredient(Ingredient.MOZARELLA)
+  .addIngredient(Ingredient.GORGONZOLA)
+  .build();
 const cart = new Cart([pizza1, pizza2]);
 
 // Setup order
@@ -43,14 +56,18 @@ order.setStatus(StatusOrder.PENDING);
 // --- Memento ---
 console.log("\n--- Memento ---");
 const cartWithHistory = CartWithHistory.fromCart(cart);
-console.log("Pizzas initiales:", cartWithHistory.getPizzas().map(p => p.getType()));
+console.log("Prix des pizzas initiales:", cartWithHistory.getPizzas().map(p => p.calculatePrice()));
 
 cartWithHistory.backup();
 console.log("Backup effectué");
 
-const pizza3 = factory.createPizza("margherita", "S");
+const pizza3 = factory.createPizzaBuilder()
+  .setSize(Size.SMALL)
+  .setBase(Base.TOMATO)
+  .addIngredient(Ingredient.MOZARELLA)
+  .build();
 cartWithHistory.getPizzas().push(pizza3);
-console.log("Après ajout d'une pizza:", cartWithHistory.getPizzas().map(p => p.getType()));
+console.log("Après ajout d'une pizza:", cartWithHistory.getPizzas().map(p => p.calculatePrice()));
 
 cartWithHistory.undo();
-console.log("Après undo:", cartWithHistory.getPizzas().map(p => p.getType()));
+console.log("Après undo:", cartWithHistory.getPizzas().map(p => p.calculatePrice()));

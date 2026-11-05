@@ -1,28 +1,28 @@
 import {
-  DaMichelePizza,
-  PizziumPizza,
-  RossopomodoroPizza,
-  type Pizza,
-} from "./pizza.js";
+  type PizzaBuilder,
+  DaMichelePizzaBuilder,
+  RossopomodoroPizzaBuilder,
+  PizziumPizzaBuilder,
+} from "./builder.js";
 
 export interface PizzaFactory {
-  createPizza(type: string, size: string): Pizza;
+  createPizzaBuilder(): PizzaBuilder;
 }
 
 export class DaMicheleFactory implements PizzaFactory {
-  public createPizza(type: string, size: string) {
-    return new DaMichelePizza(size, type);
+  public createPizzaBuilder() {
+    return new DaMichelePizzaBuilder();
   }
 }
 
 export class RossopomodoroFactory implements PizzaFactory {
-  public createPizza(type: string, size: string) {
-    return new RossopomodoroPizza(size, type);
+  public createPizzaBuilder() {
+    return new RossopomodoroPizzaBuilder();
   }
 }
 
 export class PizziumFactory implements PizzaFactory {
-  public createPizza(type: string, size: string) {
-    return new PizziumPizza(size, type);
+  public createPizzaBuilder() {
+    return new PizziumPizzaBuilder();
   }
 }

@@ -1,4 +1,4 @@
-import { CartSnapshot } from './snapshot.ts'
+import { CartSnapshot } from './snapshot.js'
 
 export class CartHistory {
   constructor(private snapshots: CartSnapshot[] = []) {}

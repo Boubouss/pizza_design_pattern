@@ -12,8 +12,8 @@ export class FactoryStockValidator extends AbstractValidator {
     const pizzas = this.order.getCart().getPizzas();
     const stock = this.order.getRestaurant().getStock();
     for (const pizza of pizzas) {
-      if (!stock.isInStock(pizza.getType())) {
-        console.log(`Pizza ${pizza.getType()} is out of stock`);
+      if (!stock.isInStock(pizza)) {
+        console.log(`Pizza is out of stock`);
         return false;
       }
     }
