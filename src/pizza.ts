@@ -1,16 +1,25 @@
 import { Ingredient, Size, Base } from "./ingredients.js";
+import type {
+  DaMicheleMenu,
+  Menu,
+  PizziumMenu,
+  RossopomodoroMenu,
+} from "./menu.js";
+import { DaMichelePriceStrategy, type PriceStrategy } from "./pizza.price.js";
 export abstract class Pizza {
+  protected type: Menu;
   protected size: Size;
   protected ingredients: Set<Ingredient>;
   protected base: Base = Base.TOMATO;
   protected basePrice: number = 5.0;
-  protected multiplier: number;
+  protected sizeCost: number;
 
-  constructor() {
-    this.size = Size.MEDIUM;
+  constructor(type: Menu, size: Size) {
     this.ingredients = new Set();
-    this.multiplier = 1.0;
-    this.setSize(this.size);
+    this.sizeCost = 1.0;
+    this.size = size;
+    this.setSize(size);
+    this.type = type;
   }
 
   public setBase(base: Base): void {
@@ -31,71 +40,99 @@ export abstract class Pizza {
     this.ingredients.delete(ingredient);
   }
 
+  abstract calculatePrice(priceStrategy: PriceStrategy): number;
+}
+
+export class DaMichelePizza extends Pizza {
+  private priceStrategy: PriceStrategy;
+
+  constructor(type: DaMicheleMenu, size: Size) {
+    super(type, size);
+    this.priceStrategy = new DaMichelePriceStrategy();
+  }
+
   calculatePrice(): number {
-    return (
-      (this.basePrice +
-        [...this.ingredients].reduce(
-          (sum, ingredient) => sum + ingredient,
-          0,
-        )) *
-      this.multiplier
+    return this.priceStrategy.calculatePrice(
+      this.type,
+      this.sizeCost,
+      [...this.ingredients].reduce((acc, ingredient) => acc + ingredient, 0),
     );
   }
-}
-export class DaMichelePizza extends Pizza {
+
   setSize(size: Size): void {
     this.size = size;
     switch (size) {
       case Size.SMALL:
-        this.multiplier = 0.8;
-        break;
-      case Size.MEDIUM:
-        this.multiplier = 1.0;
+        this.sizeCost = -2;
         break;
       case Size.LARGE:
-        this.multiplier = 1.2;
+        this.sizeCost = 3;
         break;
       case Size.XTRA_LARGE:
-        this.multiplier = 1.5;
+        this.sizeCost = 5;
         break;
+      default:
+        throw new Error(`Invalid size for DaMichelePizza`);
     }
   }
 }
+
 export class RossopomodoroPizza extends Pizza {
+  private priceStrategy: PriceStrategy;
+
+  constructor(type: RossopomodoroMenu, size: Size) {
+    super(type, size);
+    this.priceStrategy = new DaMichelePriceStrategy();
+  }
+
+  calculatePrice(): number {
+    return this.priceStrategy.calculatePrice(
+      this.type,
+      this.sizeCost,
+      [...this.ingredients].reduce((acc, ingredient) => acc + ingredient, 0),
+    );
+  }
   setSize(size: Size): void {
     this.size = size;
     switch (size) {
       case Size.SMALL:
-        this.multiplier = 0.7;
-        break;
-      case Size.MEDIUM:
-        this.multiplier = 0.9;
+        this.sizeCost = 0.8;
         break;
       case Size.LARGE:
-        this.multiplier = 1.1;
+        this.sizeCost = 1.3;
         break;
       case Size.XTRA_LARGE:
-        this.multiplier = 1.4;
+        this.sizeCost = 1.5;
         break;
+      default:
+        throw new Error(`Invalid size for RossopomodoroPizza`);
     }
   }
 }
+
 export class PizziumPizza extends Pizza {
+  private priceStrategy: PriceStrategy;
+
+  constructor(type: PizziumMenu, size: Size) {
+    super(type, size);
+    this.priceStrategy = new DaMichelePriceStrategy();
+  }
+
+  calculatePrice(): number {
+    return this.priceStrategy.calculatePrice(
+      this.type,
+      this.sizeCost,
+      [...this.ingredients].reduce((acc, ingredient) => acc + ingredient, 0),
+    );
+  }
   setSize(size: Size): void {
     this.size = size;
     switch (size) {
-      case Size.SMALL:
-        this.multiplier = 1.0;
-        break;
       case Size.MEDIUM:
-        this.multiplier = 1.2;
+        this.sizeCost = 1.2;
         break;
-      case Size.LARGE:
-        this.multiplier = 1.4;
-        break;
-      case Size.XTRA_LARGE:
-        this.multiplier = 1.7;
-        break;
+      default:
+        throw new Error(`Invalid size for PizziumPizza`);
     }
   }
 }

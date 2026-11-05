@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "tsx src/index.ts",
+    "start": "tsx src/api/server.ts",
+    "dev": "tsx watch src/api/server.ts",
     "build": "tsc",
-    "dev": "tsx watch src/index.ts",
     "test": "vitest"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
+    "fastify": "^5.12.8",
     "vitest": "^5.1.0"
   }
 }
