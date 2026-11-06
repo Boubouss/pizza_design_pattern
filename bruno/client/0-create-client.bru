@@ -1,0 +1,21 @@
+meta {
+  name: Create Client
+  type: http
+  seq: 0
+}
+
+post {
+  url: {{baseUrl}}/clients
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Alice"
+  }
+}
+
+script:post-response {
+  bru.setEnvVar("clientId", res.body.clientId);
+}

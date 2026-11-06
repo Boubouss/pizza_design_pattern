@@ -1,0 +1,11 @@
+meta {
+  name: Get Client Orders
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/clients/{{clientId}}/orders
+  body: none
+  auth: none
+}

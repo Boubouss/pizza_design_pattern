@@ -1,0 +1,19 @@
+meta {
+  name: Add Premade Pizza
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/cart/{{cartId}}/pizza/premade
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "restaurant": "damichele",
+    "type": "Napoli",
+    "size": "L"
+  }
+}

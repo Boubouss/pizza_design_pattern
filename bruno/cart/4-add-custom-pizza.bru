@@ -1,0 +1,23 @@
+meta {
+  name: Add Custom Pizza
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/cart/{{cartId}}/pizza/custom
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "restaurant": "damichele",
+    "size": "L",
+    "base": "Tomato",
+    "ingredients": [
+      "Mozarella",
+      "Pepperoni"
+    ]
+  }
+}
